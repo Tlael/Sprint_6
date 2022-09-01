@@ -1,4 +1,5 @@
 import com.example.Feline;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -7,27 +8,38 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
 @RunWith(MockitoJUnitRunner.class)
-public class testFeline {
+public class FelineTest {
     @Mock
     Feline feline;
 
     @Test
     public void eatMeatShouldPredatorFood() throws Exception {
-        List<String> expected = List.of("Животные", "Птицы", "Рыба");
-        Mockito.when(feline.eatMeat()).thenReturn(expected);
-        List<String> actual = feline.eatMeat();
-        assertEquals(expected, actual);
+        feline = new Feline();
+        Feline feline1 = Mockito.spy(feline);
+        List<String> expected = List.of("Мороженное", "Животные", "Птицы", "Рыба");
+        Mockito.when(feline1.getFood("Хищник")).thenReturn(expected);
+        List<String> actual = feline1.eatMeat();
+        Assert.assertEquals(expected, actual);
     }
+
     @Test
-    public void getFamilyShouldPredator() throws Exception {
-        String expected = new String("Кошачьи");
-        Mockito.when(feline.getFamily()).thenReturn(expected);
-        String actual = feline.getFamily();
-        assertEquals(expected, actual);
+    public void getFamilyShouldPredator() {
+        feline = new Feline();
+        Feline feline1 = Mockito.spy(feline);
+        String expected = "Кошачьи";
+        Mockito.when(feline1.getFamily()).thenReturn(expected);
+        String actual = feline1.getFamily();
+        Assert.assertEquals(expected, actual);
     }
 
-
+    @Test
+    public void kittenCount() {
+        feline = new Feline();
+        Feline feline1 = Mockito.spy(feline);
+        int expected = 1;
+        Mockito.when(feline1.getKittens()).thenReturn(expected);
+        int actual = feline1.getKittens();
+        Assert.assertEquals(expected, actual);
+    }
 }
